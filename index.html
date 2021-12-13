@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solid Template</title>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackedit.io/style.css" />
+    <link rel="stylesheet" href="dist/css/style.css">
+    
+	<script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+</head>
+<body class="is-boxed has-animations">
+    <div class="body-wrap">
+        <header class="site-header">
+            <div class="container">
+                <div class="site-header-inner">
+                    <div class="brand header-brand">
+                        <h1 class="m-0">
+							<a href="#">
+								<img class="header-logo-image" src="dist/images/logo.svg" alt="Logo">
+                            </a>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-inner">
+						<div class="hero-copy">
+	                        <h1 class="hero-title mt-0">You're getting attacked by the <s>NSA</s> Kilyan Le Gallic</h1>
+ 
+	                        <p class="hero-paragraph">Thanks to my very deep understanding of networks, I have setup a stub network, similar to one you can find in a bussiness</p>
+	                        <div class="hero-cta"><a class="button button-primary" href="#">A button</a><a class="button" href="#">Yet another button</a></div>
+						</div>
+						<div class="hero-figure anime-element">
+							<svg class="placeholder" width="528" height="396" viewBox="0 0 528 396">
+								<rect width="528" height="396" style="fill:transparent;" />
+							</svg>
+							<div class="hero-figure-box hero-figure-box-01" data-rotation="45deg"></div>
+							<div class="hero-figure-box hero-figure-box-02" data-rotation="-45deg"></div>
+							<div class="hero-figure-box hero-figure-box-03" data-rotation="0deg"></div>
+							<div class="hero-figure-box hero-figure-box-04" data-rotation="-135deg"></div>
+							<div class="hero-figure-box hero-figure-box-05"></div>
+							<div class="hero-figure-box hero-figure-box-06"></div>
+							<div class="hero-figure-box hero-figure-box-07"></div>
+							<div class="hero-figure-box hero-figure-box-08" data-rotation="-22deg"></div>
+							<div class="hero-figure-box hero-figure-box-09" data-rotation="-52deg"></div>
+							<div class="hero-figure-box hero-figure-box-10" data-rotation="-50deg"></div>
+                            
+						</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features section">
+                <div class="container">
+					<div class="features-inner section-inner has-bottom-divider">
+                        <div class="features-wrap">
+                            <div class="feature text-center is-revealing">
+                                <div class="feature-inner">
+                                    <div class="feature-icon">
+										<img src="dist/images/feature-icon-01.svg" alt="Feature 01">
+                                    </div>
+                                    <h4 class="feature-title mt-24">You're reading this</h4>
+                                    <p class="text-sm mb-0">And now, this</p>
+                                </div>
+                            </div>
+							<div class="feature text-center is-revealing">
+                                <div class="feature-inner">
+                                    <div class="feature-icon">
+										<img src="dist/images/Loth_Livre_III.svg" width="120" height="200" alt="Feature 02">
+                                    </div>
+                                    <h4 class="feature-title mt-24">"Tempora mori, tempora mundis recorda."" </h4>
+                                    <p class="text-sm mb-0">"Voilà. Eh bien ça, par exemple, ça veut absolument rien dire, mais l’effet reste le même, et pourtant j’ai jamais foutu les pieds dans une salle de classe attention !"</p>
+                                    <q>Le roi Loth</q>
+                                </div>
+                            </div>
+                            <div class="feature text-center is-revealing">
+                                <div class="feature-inner">
+                                    <div class="feature-icon">
+										<img width="120" height="100" src="dist/images/sillius_flag_of_britain.svg" alt="Feature 02">
+                                    </div>
+                                    <h4 class="feature-title mt-24">Et voici venir le temps des poings levés !</h4>
+                                    <q>Gilles Servat</q>
+                                    <p class="text-sm mb-0"> "Air de Bignou"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="stackedit" style="color : white;">
+                <div >
+                    <div class="stackedit__html">
+                      <h1 id="mise-en-place-d’un-réseau-d’entreprise">Mise en place d’un réseau d’entreprise</h1>
+                      <h2 id="introduction">Introduction</h2>
+                      <p>L’objectif de ce projet est de disposer d’une ébauche de réseau tel qu’on pourrait trouver dans une entreprise,
+                        avec une DMZ contenant un serveur proposant plusieurs services (pour l’instant juste une instance apache2) et un
+                        réseau privé contenant les machines clientes de l’entreprise.</p>
+                      <p>La totalité du réseau tourne sur des VMs Debian Bullseye 11.1 virtualisées sur VirtualBox.</p>
+                      <h2 id="sommaire">Sommaire</h2>
+                      <ul>
+                        <li><a href="#d%C3%A9tails">Détails des outils utilisés</a></li>
+                        <li><a href="#plan_d'adressage">Plan d’adressage</a></li>
+                        <li><a href="#">Interconnexion de la DMZ et du réseau privé</a></li>
+                        <li><a href="#">Interconnexion avec un réseau identique géré par une autre personne</a></li>
+                        <li><a href="#">Connexion des réseaux privés à Internet via le routeur</a></li>
+                        <li><a href="#">Mise en place d’une politique de sécurité</a></li>
+                        <li><a href="#dhcp">DHCP</a></li>
+                        <li><a href="#proxy">Proxy</a></li>
+                        <li><a href="#dns">DNS</a></li>
+                      </ul>
+                      <h2 id="détails-des-outils-utilisés">Détails des outils utilisés</h2>
+                      <ul>
+                        <li><a href="#apache2">Serveur Web : apache2</a></li>
+                        <li>Navigateur web : Firefox</li>
+                        <li><a href="#squid">Proxy : squid</a></li>
+                        <li><a href="#dhcp">Serveur DHCP : isc-dhcp-server</a></li>
+                        <li><a href="#dns">DNS : bind</a></li>
+                      </ul>
+                      <h2 id="plan-d’adressage">Plan d’adressage</h2>
+                      <p>Le serveur est situé sur le sous-réseau <strong>DMZ</strong> <em><strong>192.168.1.0/24</strong></em> (adresse IP
+                        fixé à XXX.1.1 via la configuration DHCP)<br>
+                        Les clients sont situés sur le sous-réseau <strong>private</strong> <em><strong>192.168.2.0/24</strong></em><br>
+                        Le routeur fera office de serveur DHCP, de proxy et de serveur DNS. Ses adresses sont
+                        <em><strong>192.168.1.1</strong></em> (private) et <em><strong>192.168.2.1</strong></em> (DMZ). Son adresse
+                        publique est <em><strong>10.10.2.16</strong></em> (<em>gérée par VirtualBox via une connexion NAT</em>)</p>
+                        <p><img src="./dist/images/diagram.png" alt=""></p>
+                        <h2 id="apache2">apache2</h2>
+                      <p>Afin de pouvoir tester la communication client - serveur, il a été décidé de mettre en place un serveur apache2
+                        hebergé sur le serveur et proposant un site web.<br>
+                        La configuration est celle par défaut, le besoin de disposer de plusieurs serveurs en parallèle ne s’exprimant
+                        pas.</p>
+                      <h2 id="interconnexion-de-la-dmz-et-du-réseau-privé">Interconnexion de la DMZ et du réseau privé</h2>
+                      <p>Pour que le client puisse accéder au serveur, il faut mettre en place le routage.<br>
+                        Pour ce faire, il faut premièrement indiquer à la machine routeur de <em>forward</em> les paquets.</p>
+                      <pre class=" language-bash"><code class="prism  language-bash"><span class="identifier-user">root@routeur:~$</span>	 <span class="token keyword">echo</span> 1 <span class="token operator">&gt;</span> /proc/sys/net/ipv4/ip_forward
+                  
+                  </code></pre>
+                      <p>Il faut ensuite fournir aux machines clientes et serveur la route à suivre pour accéder l’une à l’autre.</p>
+                      <pre class=" language-bash"><code class="prism  language-bash"><span class="identifier-user">root@client:~$</span>	 ip route add 192.168.1.2/24 via 192.168.1.1
+                  
+                  </code></pre>
+                      <p>Mais la configuration la plus intelligente des routes est de définir le routeur comme étant la route par défaut
+                        des machines.</p>
+                      <pre class=" language-bash"><code class="prism  language-bash"><span class="identifier-user">root@client:~$</span>	 ip route add default via 192.168.1.1
+                  
+                  </code></pre>
+                      <p>Désormais, un client peut accéder à la page web hébergé par le serveur.<br>
+                        Il n’y a pas besoin de mettre en place du NAT car les échanges sont routés entre deux réseaux privés (192.168.X.X)
+                        et ne seront pas rejetés par le routeur.</p>
+                      <h2 id="interconnexion-avec-un-réseau-identique-géré-par-une-autre-personne">Interconnexion avec un réseau identique
+                        géré par une autre personne</h2>
+                      <p>Cette partie a été réalisée avec l’aimable collaboration de M. Emrick PESCE.<br>
+                        Le réseau géré par Emrick est identique au mien (au plan d’adressage près).</p>
+                      <h3 id="mise-en-place-du-dnat">Mise en place du DNAT</h3>
+                      <p>Afin de pouvoir requêter le serveur d’Emrick, il faut que mon client connaisse ait accès à son serveur.<br>
+                        Or la configuration actuelle de nos routeurs rend cela impossible, car le client A a tout au plus accès au routeur
+                        B.<br>
+                        Il faut donc indiquer au routeur que toute requête sur le port 80 (web) afin de rediriger vers le serveur. Cela
+                        est totalement transparent pour le client.</p>
+                      <pre class=" language-bash"><code class="prism  language-bash"><span class="identifier-user">root@client:~$</span>	 iptables -t nat -A PREROUTING -d 10.10.20.4 -p tcp --dport 80 -j DNAT --to-destination 192.168.1.2:80
+                  
+                  </code></pre>
+                      <h3 id="branchement-au-switch">Branchement au switch</h3>
+                      <p>Grace à la contribution de Mme Anaïs THILLAYE 🔥, nous disposons d’un switch (Cisco?) sur lequel nous pouvons
+                        brancher nos deux machines hôtes en Ethernet en ajoutant une connexion <strong>par pont</strong> sur nos routeurs.
+                      </p>
+                      <p><img src="./dist/images/test-2021-12-07_13.32.40.gif" alt=""></p>
+                      <h2 id="connexion-des-réseaux-privés-à-internet-via-le-routeur">Connexion des réseaux privés à Internet via le
+                        routeur</h2>
+                      <p>Pour l’instant, les machines clientes et serveurs sont connectées à Internet via une interface NAT dans le souci
+                        de pouvoir installer des paquets tels que apache2 ou curl.<br>
+                        Mais cette configuration n’offre presque aucun contrôle de l’entreprise sur le trafic des machines clientes (ils
+                        peuvent par exemple accéder à des sites potentiellement infectés).<br>
+                        Il faut donc faire en sorte que le trafic sortant du réseau privé soit obligé de transiter via le routeur.<br>
+                        Or, le routeur ne peut “<em>forward</em>” le trafic provenant du réseau privé sur Internet car les paquets
+                        provenant d’adresses privées doivent être rejetés par les routeurs n’ayant pas de connexion directe dans ce
+                        réseau. Les paquets seraient alors directement drop par le prochain routeur.<br>
+                        Afin de pouvoir faire en sorte que les clients puissent communiquer sur Internet via le routeur, il faut mettre en
+                        place du <strong>Source Nating</strong> (<em><strong>SNAT</strong></em>).</p>
+                      <p>Pour ce faire, il faut d’abord indiquer au routeur qu’il peut remplacer les adresses IPs sources par la sienne.
+                      </p>
+                      <pre class=" language-bash"><code class="prism  language-bash"><span class="identifier-user">root@routeur:~$</span>	 iptables -t nat -A POSTROUTING -o enp0s10 -j MASQUERADE
+                  
+                  </code></pre>
+                      <p>Il faut ensuite ensuite indiquer au routeur quelles adresses IP il peut remplacer.</p>
+                      <pre class=" language-bash"><code class="prism  language-bash"><span class="identifier-user">root@routeur:~$</span>	 iptables -t nat -A POSTROUTING -o enp0s10 -j SNAT --to 10.0.2.55
+                  
+                  </code></pre>
+                      <p>Les machines clientes ont maintenant accès à Internet via le routeur.</p>
+                      <h2 id="dhcp">DHCP</h2>
+                      <h3 id="configuration-du-serveur-dhcp">Configuration du serveur DHCP</h3>
+                      <p>Afin d’éviter la configuration manuelle des machines clientes, il faut fournir un service DHCP (<em>Dynamic Host
+                          Configuration Protocol</em>).<br>
+                        L’outil choisi pour effectuer ceci est <strong>isc-dhcp-server</strong>, qui remplace dhcp3-server.</p>
+                      <p>Le serveur DNS choisi est le DNS de Cloudflare (1.1.1.1 / 1.0.0.1).</p>
+                      <p>Il faut déclarer dans le fichier <strong>/etc/dhcp/dhcpd.conf</strong> la configuration suivante :</p>
+                      <pre><code>subnet 192.168.2.0 netmask 255.255.255.0 {
+                      range 192.168.2.2 192.168.2.30; #Plages d'adresses pouvant être données à un client
+                      options routers 192.168.1.1; #Route par défaut pointant sur le routeur
+                  }
+                  
+                  </code></pre>
+                      <p>Pour donner une adresse constante au serveur, on peut l’indentifier via son adresse MAC :</p>
+                      <pre><code>host server {
+                      hardware ethernet 08:00:27:13:70:bb; #Adresse MAC de l'interface du serveur
+                      fixed-adress 192.168.1.2;
+                  
+                  </code></pre>
+                      <p>Il faut également indiquer à isc-dhcp-server quelles interfaces il doit écouter.<br>
+                        Il faut pour cela modifier le fichier <strong>/etc/default/isc-dhcp-server</strong> en rajoutant les interfaces à
+                        écouter (par défaut, l’interface écoutée est eth0) :</p>
+                      <pre><code>INTERFACES="enp0s8 enp0s9"
+                  </code></pre>
+                      <h3 id="configuration-des-clients">Configuration des clients</h3>
+                      <p>Pour que les machines clientes puissent demander et recevoir des adresses via le serveur DHCP, il faut modifier
+                        la configuration de leur interface :</p>
+                      <p>Fichier de configuration <strong>/etc/network/interfaces</strong> :</p>
+                      <pre><code>iface enp0s8 inet dhcp
+                  </code></pre>
+                      <h2 id="proxy">Proxy</h2>
+                      <h3 id="proxy-cache-classique">Proxy cache classique</h3>
+                      <h4 id="configuration-du-proxy">Configuration du proxy</h4>
+                      <p>Afin de pouvoir éviter une surcharge inutile du réseau si plusieurs clients souhaitent accéder à la même
+                        ressource (la bande passante externe est bien plus coûteuse que la bande passante interne), on peut mettre en
+                        place un proxy.<br>
+                        L’outil utilisé est squid, un proxy cache http/https/ftp combiné à un accélérateur web (ressource compressor).<br>
+                        Squid est hebergé sur le routeur, et est configuré de tel sorte qu’il n’autorise pas le protocole SSH ni l’accès
+                        au site internet <a href="http://facebook.com">facebook.com</a> .<br>
+                        Fichier de configuration <strong>/etc/squid/squid.conf</strong> :</p>
+                      <pre><code> http_port 3128 #Configuration par défaut du port
+                   acl localnet src 192.168.2.0.24 #private network
+                   acl SSH port 22
+                   acl Safe port 80
+                   acl Safe port 443
+                   acl Safe port 21
+                   acl Facebook dstdomain dstdomain .facebook.com
+                   //////
+                   http_access deny SSH
+                   http_deny !Safe
+                   http_deny Facebook
+                  
+                  </code></pre>
+                      <h4 id="configuration-du-navigateur">Configuration du navigateur</h4>
+                      <p>Pour que le navigateur utilise le proxy, il faut lui indiquer qu’il doit passer par un proxy :<br>
+                        <img src="https://www.numelion.com/wp-content/uploads/2017/08/parametrer-proxy-mozilla-firefox.jpg"
+                          alt="enter image description here">
+                      </p>
+                      <h3 id="proxy-transparent">Proxy transparent</h3>
+                      <p>Afin de faciliter l’accès à Internet des machines clientes, on peut indiquer au routeur qu’il doit rediriger tout
+                        le trafic http sur le proxy afin que le client n’ai pas à configurer son proxy.<br>
+                        Il s’agit d’une simple redirection des ports 80 (HTTP) et 443 (HTTPS) :</p>
+                      <pre class=" language-bash"><code class="prism  language-bash">
+<span><span class="identifier-user">root@routeur:~$</span>iptables -t nat -A PREROUTING -i enp0s8 -p tcp --dport 80 -j REDIRECT --to-port 3128</span>
+                  
+<span><span class="identifier-user">root@routeur:~$</span> iptables -t nat -A PREROUTING -i enp0s8 -p tcp --dport 443 -j REDIRECT --to-port 3129</span>
+                  
+                  </code></pre>
+                    <p>A noter que Squid est configuré pour disposer de 2 ports qui prennent respectivement en charge HTTP (port 80) et HTTPS (port 443)</p>
+                    <p>Ceci dans le but de ne pas essayer d'envoyer une requête HTTPS sur le port HTTP, ce qui mettrait en échec le proxy</p>
+                      <p>Désormais, les machines clientes n’ont plus à configurer leur navigateur pour utiliser le proxy.</p>
+                      <h2 id="dns">DNS</h2>
+                      <p>L’outil choisi pour réaliser le serveur DNS est <strong>bind</strong>.</p>
+                    </div>
+                  </div>
+            </section>
+
+            <section class="pricing section">
+                <div class="container-sm">
+                    <div class="pricing-inner section-inner">
+                        <div class="pricing-header text-center">
+                            <h2 class="section-title mt-0">Unlimited for all</h2>
+                            <p class="section-paragraph mb-0">LALALALALALALALALALALALALALALALALALALALALALALALA</p>
+                        </div>
+						<div class="pricing-tables-wrap">
+                            <div class="pricing-table">
+                                <div class="pricing-table-inner is-revealing">
+                                    <div class="pricing-table-main">
+                                        <div class="pricing-table-header pb-24">
+                                            <div class="pricing-table-price"><span class="pricing-table-price-currency h2">20</span><span class="pricing-table-price-amount h1">/20</span><span class="text-xs"> right now</span></div>
+                                        </div>
+										<div class="pricing-table-features-title text-xs pt-24 pb-24">What you will get</div>
+                                        <ul class="pricing-table-features list-reset text-xs">
+                                            <li>
+                                                <span>Unlimited stuff</span>
+                                            </li>
+                                            <li>
+                                                <span>DANS LA TRIBU OH OH DE DANA LALILALA</span>
+                                            </li>
+                                            <li>
+                                                <span>${thing}</span>
+                                            </li>
+											<li>
+												<span>Free IKEA pencils</span>
+											</li>
+                                        </ul>
+                                    </div>
+                                    <div class="pricing-table-cta mb-8">
+                                        <a class="button button-primary button-shadow button-block" href="le-site-des-notes.com">HERe</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+			<section class="cta section">
+				<div class="container">
+					<div class="cta-inner section-inner">
+						<h3 class="section-title mt-0">Still not convinced</h3>
+						<div class="cta-cta">
+							<a class="button button-primary button-wide-mobile" href="">Get in touch</a>
+						</div>
+					</div>
+				</div>
+			</section>
+        </main>
+
+        
+    </div>
+
+    <script src="dist/js/main.min.js"></script>
+</body>
+</html>
