@@ -191,7 +191,7 @@
                         <h3 id="forward">Forward</h3>
                         <p>Tout d’abord, on s’occupe du <em>forward</em>. On commence par refuser tous les paquets invalides :</p>
                         <p><code>iptables -A FORWARD -m state --state INVALID -j DROP -m comment --comment "All msg with invalid state are dropped"</code></p>
-                        <p>Ensuite, il faut accepter les transferts de connexions que nous faisons. Dans notre cas on veut juste autoriser la redirection du vers noter serveur web :</p>
+                        <p>Ensuite, il faut accepter les transferts de connexions que nous faisons. Dans notre cas on veut juste autoriser la redirection du port 80 vers noter serveur web :</p>
                         <p><code>iptables -A FORWARD -p tcp --dport 80 -d 10.0.2.16/24 -j ACCEPT -m comment --comment "Accept all connexion on my routeur through the port 80 : For accessing to the web server"</code></p>
                         <p>On continue à accepter toutes les connexions entre les différentes machines de notre réseau. Cela aurait été différent si nous étions en entreprise. En effet, nous aurions limité cela pour mieux sécuriser le réseau. Voici les commandes
                             :
