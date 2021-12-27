@@ -187,6 +187,87 @@
                   </code></pre>
                         <p>Les machines clientes ont maintenant accès à Internet via le routeur.</p>
                         <h2 id="securite">Mise en place d'une politique de sécurité</h2>
+                        <p>Nous voulons définir une politique de sécurité pour notre réseau. Pour cela, nous allons suivre différentes étapes.</p>
+                        <h3 id="forward">Forward</h3>
+                        <p>Tout d’abord, on s’occupe du <em>forward</em>. On commence par refuser tous les paquets invalides :</p>
+                        <p><code>iptables -A FORWARD -m state --state INVALID -j DROP -m comment --comment "All msg with invalid state are dropped"</code></p>
+                        <p>Ensuite, il faut accepter les transferts de connexions que nous faisons. Dans notre cas on veut juste autoriser la redirection du vers noter serveur web :</p>
+                        <p><code>iptables -A FORWARD -p tcp --dport 80 -d 10.0.2.16/24 -j ACCEPT -m comment --comment "Accept all connexion on my routeur through the port 80 : For accessing to the web server"</code></p>
+                        <p>On continue à accepter toutes les connexions entre les différentes machines de notre réseau. Cela aurait été différent si nous étions en entreprise. En effet, nous aurions limité cela pour mieux sécuriser le réseau. Voici les commandes
+                            :
+                        </p>
+                        <pre><code>iptables -A FORWARD -i enp0s8 -o enp0s3 -j ACCEPT -m comment --comment "Accept Client network to access internet"
+
+
+iptables -A FORWARD -i enp0s3 -o enp0s8 -j ACCEPT -m comment --comment "Accept Client network to access internet"
+
+iptables -A FORWARD -i enp0s9 -o enp0s3 -j ACCEPT -m comment --comment "Accept Server network to access internet"
+
+iptables -A FORWARD -i enp0s3 -o enp0s9 -j ACCEPT -m comment --comment "Accept Server network to access internet"
+
+iptables -A FORWARD -i enp0s9 -o enp0s8 -j ACCEPT -m comment --comment "Accept the connexion of the client on the server network"
+
+iptables -A FORWARD -i enp0s8 -o enp0s9 -j ACCEPT -m comment --comment "Accept the connexion of the server on the client network"
+</code></pre>
+                        <p>Évidemment, il nous faut accepter les connexions déjà établies :</p>
+                        <p><code>iptables -A FORWARD -j ACCEPT -m state --state RELATED,ESTABLISHED -m comment --comment "Accept all msgs when the connexion is already done"</code></p>
+                        <p>Enfin, on refuse toutes les autres connexions, et pour être plus clair dans les logs, nous pouvons rajouter un préfixe :</p>
+                        <pre><code>iptables -A FORWARD -j DROP -m comment --comment "Refuse all others connexions"
+
+iptables -A FORWARD -j LOG --log-prefix "FORWARD DROP" -m comment --comment "Rajoute au début des logs des règles précédentes ce préfix"
+</code></pre>
+                        <h3 id="input">Input</h3>
+                        <p>Nous nous intéressons maintenant au <em>input</em>.</p>
+                        <p>Comme pour le <em>forward</em>, on rejette tous les paquets invalides, et nous acceptons ceux provenant de connexions déjà établies :</p>
+                        <pre><code>iptables -A INPUT -m state --state INVALID -j DROP -m comment --comment "All msg with invalid state are dropped"
+
+iptables -A INPUT -j ACCEPT -m state --state RELATED,ESTABLISHED -m comment --comment "Accept all msgs when the connexion is already done"
+</code></pre>
+                        <p>On autorise les messages du routeur vers lui-même :</p>
+                        <pre><code>iptables -A INPUT -i lo -j ACCEPT -m comment --comment "Autorise the loopback through the lo interface"
+</code></pre>
+                        <p>Enfin, on refuse toutes les autres connexions, et pour être plus clair dans les logs, nous pouvons rajouter un préfixe :</p>
+                        <pre><code>iptables -A INPUT -j DROP -m comment --comment "Refuse all others connexions"
+
+iptables -A INPUT -j LOG --log-prefix "INPUT DROP" -m comment --comment "Rajoute au début des logs des règles précédentes ce préfix"
+</code></pre>
+                        <p>Finalement, nous nous retrouvons avec toutes ces commandes :</p>
+                        <pre><code>iptables -A FORWARD -m state --state INVALID -j DROP -m comment --comment "All msg with invalid state are dropped"
+
+iptables -A FORWARD -p tcp --dport 80 -d 10.0.2.16/24 -j ACCEPT -m comment --comment "Accept all connexion on my routeur through the port 80 : For accessing to the web server"
+
+iptables -A FORWARD -i enp0s8 -o enp0s3 -j ACCEPT -m comment --comment "Accept Client network to access internet"
+
+iptables -A FORWARD -i enp0s3 -o enp0s8 -j ACCEPT -m comment --comment "Accept Client network to access internet"
+
+iptables -A FORWARD -i enp0s9 -o enp0s3 -j ACCEPT -m comment --comment "Accept Server network to access internet"
+
+iptables -A FORWARD -i enp0s3 -o enp0s9 -j ACCEPT -m comment --comment "Accept Server network to access internet"
+
+iptables -A FORWARD -i enp0s9 -o enp0s8 -j ACCEPT -m comment --comment "Accept the connexion of the client on the server network"
+
+iptables -A FORWARD -i enp0s8 -o enp0s9 -j ACCEPT -m comment --comment "Accept the connexion of the server on the client network"
+
+iptables -A FORWARD -j ACCEPT -m state --state RELATED,ESTABLISHED -m comment --comment "Accept all msgs when the connexion is already done"
+
+iptables -A FORWARD -j DROP -m comment --comment "Refuse all others connexions"
+
+iptables -A FORWARD -j LOG --log-prefix "FORWARD DROP" -m comment --comment "Rajoute au début des logs des règles précédentes ce préfix"
+
+  
+
+iptables -A INPUT -m state --state INVALID -j DROP -m comment --comment "All msg with invalid state are dropped"
+
+iptables -A INPUT -j ACCEPT -m state --state RELATED,ESTABLISHED -m comment --comment "Accept all msgs when the connexion is already done"
+
+iptables -A INPUT -i lo -j ACCEPT -m comment --comment "Autorise the loopback through the lo interface"
+
+iptables -A INPUT -j DROP -m comment --comment "Refuse all others connexions"
+
+iptables -A INPUT -j LOG --log-prefix "INPUT DROP" -m comment --comment "Rajoute au début des logs des règles précédentes ce préfix"
+
+</code></pre>
+
                         <h2 id="dhcp">DHCP</h2>
                         <h3 id="configuration-du-serveur-dhcp">Configuration du serveur DHCP</h3>
                         <p>Afin d’éviter la configuration manuelle des machines clientes, il faut fournir un service DHCP (<em>Dynamic Host
