@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Solid Template</title>
+    <title>${jdni:http://255.255.255.255:8080/reseau}</title>
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
     <link rel="stylesheet" href="https://stackedit.io/style.css" />
     <link rel="stylesheet" href="dist/css/style.css">
@@ -60,43 +60,6 @@
                 </div>
             </section>
 
-            <section class="features section">
-                <div class="container">
-                    <div class="features-inner section-inner has-bottom-divider">
-                        <div class="features-wrap">
-                            <div class="feature text-center is-revealing">
-                                <div class="feature-inner">
-                                    <div class="feature-icon">
-                                        <img src="dist/images/feature-icon-01.svg" alt="Feature 01">
-                                    </div>
-                                    <h4 class="feature-title mt-24">You're reading this</h4>
-                                    <p class="text-sm mb-0">And now, this</p>
-                                </div>
-                            </div>
-                            <div class="feature text-center is-revealing">
-                                <div class="feature-inner">
-                                    <div class="feature-icon">
-                                        <img src="dist/images/Loth_Livre_III.svg" width="120" height="200" alt="Feature 02">
-                                    </div>
-                                    <h4 class="feature-title mt-24">"Tempora mori, tempora mundis recorda."" </h4>
-                                    <p class="text-sm mb-0">"Voilà. Eh bien ça, par exemple, ça veut absolument rien dire, mais l’effet reste le même, et pourtant j’ai jamais foutu les pieds dans une salle de classe attention !"</p>
-                                    <q>Le roi Loth</q>
-                                </div>
-                            </div>
-                            <div class="feature text-center is-revealing">
-                                <div class="feature-inner">
-                                    <div class="feature-icon">
-                                        <img width="120" height="100" src="dist/images/sillius_flag_of_britain.svg" alt="Feature 02">
-                                    </div>
-                                    <h4 class="feature-title mt-24">Et voici venir le temps des poings levés !</h4>
-                                    <q>Gilles Servat</q>
-                                    <p class="text-sm mb-0"> "Air de Bignou"</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             <section class="stackedit" style="color : white;">
                 <div>
@@ -138,13 +101,14 @@
                         <h2 id="plan-d’adressage">Plan d’adressage</h2>
                         <p>Le serveur est situé sur le sous-réseau <strong>DMZ</strong> <em><strong>192.168.1.0/24</strong></em> (adresse IP fixé à XXX.1.1 via la configuration DHCP)<br> Les clients sont situés sur le sous-réseau <strong>private</strong>                            <em><strong>192.168.2.0/24</strong></em><br> Le routeur fera office de serveur DHCP, de proxy et de serveur DNS. Ses adresses sont
                             <em><strong>192.168.1.1</strong></em> (private) et <em><strong>192.168.2.1</strong></em> (DMZ). Son adresse publique est <em><strong>10.10.2.16</strong></em> (<em>gérée par VirtualBox via une connexion NAT</em>).</p>
+                        <p>Le routeur dispose également d'une interface par pont, permettant l'interconnexion des réseaux et étant présente sur le sous-réseau <strong>10.10.2.0/24</strong>.</p>
                         <p><img src="./dist/images/diagram.png" alt=""></p>
                         <h2 id="apache2">apache2</h2>
                         <p>Afin de pouvoir tester la communication client - serveur, il a été décidé de mettre en place un serveur apache2 hebergé sur le serveur et proposant un site web.<br> La configuration est celle par défaut, le besoin de disposer de
                             plusieurs serveurs en parallèle ne s’exprimant pas.
                         </p>
                         <h2 id="interconnexion-de-la-dmz-et-du-réseau-privé">Interconnexion de la DMZ et du réseau privé</h2>
-                        <p>Pour que le client puisse accéder au serveur, il faut mettre en place le routage.<br> Pour ce faire, il faut premièrement indiquer à la machine routeur de <em>forward</em> les paquets.</p>
+                        <p>Pour que le client puisse accéder au serveur, il faut activer le routage sur le routeur.<br> Pour ce faire, il faut premièrement indiquer à la machine routeur de <em>forward</em> les paquets.</p>
                         <pre class=" language-bash"><code class="prism  language-bash"><span class="identifier-user">root@routeur:~$ :</span>	 <span class="token keyword">echo</span> 1 <span class="token operator">&gt;</span> /proc/sys/net/ipv4/ip_forward
                   
                   </code></pre>
@@ -152,48 +116,48 @@
                         <pre class=" language-bash"><code class="prism  language-bash"><span class="identifier-user">root@client:~$ :</span>	 ip route add 192.168.1.2/24 via 192.168.1.1
                   
                   </code></pre>
-                        <p>Mais la configuration la plus intelligente des routes est de définir le routeur comme étant la route par défaut des machines.</p>
+                        <p>Mais une configuration plus intelligente des routes est de définir le routeur comme étant la route par défaut des machines.</p>
                         <pre class=" language-bash"><code class="prism  language-bash"><span class="identifier-user">root@client:~$ :</span>	 ip route add default via 192.168.1.1
                   
                   </code></pre>
-                        <p>Désormais, un client peut accéder à la page web hébergé par le serveur.<br> Il n’y a pas besoin de mettre en place du NAT car les échanges sont routés entre deux réseaux privés (192.168.X.X) et ne seront pas rejetés par le routeur.</p>
+                        <p>Désormais, un client peut accéder à la page web hébergée par le serveur.<br> Il n’y a pas besoin de mettre en place du NAT car les échanges sont routés entre deux réseaux privés (192.168.X.X) et ne seront pas rejetés par le routeur.</p>
                         <h2 id="interconnexion-avec-un-réseau-identique-géré-par-une-autre-personne">Interconnexion avec un réseau identique géré par une autre personne</h2>
                         <p>Chacun de nos réseaux est géré de la même façon et dispose du même plan d'adressage 10.10.2.XXX</p>
                         <h3 id="mise-en-place-du-dnat">Mise en place du DNAT</h3>
                         <p>Afin de pouvoir requêter un autre serveur, il faut que le client ait accès au serveur.<br> Or la configuration actuelle de nos routeurs rend cela impossible, car le client A a tout au plus accès au routeur B.
-                            <br> Il faut donc indiquer au routeur que toute requête sur le port 80 (web) afin de rediriger vers le serveur. Cela est totalement transparent pour le client.</p>
+                            <br> Il faut donc indiquer au routeur que toute requête sur le port 80 (web) du routeur soit redirigée sur le port 80 du serveur web. Cela est totalement transparent pour le client.</p>
                         <pre class=" language-bash"><code class="prism  language-bash"><span class="identifier-user">root@client:~$ :</span>	 iptables -t nat -A PREROUTING -d 10.10.2.99 -p tcp --dport 80 -j DNAT --to-destination 192.168.1.2:80
                   
                   </code></pre>
                         <h3 id="branchement-au-switch">Branchement au switch</h3>
-                        <p>Grace à la contribution de Mme Anaïs THILLAYE 🔥, nous disposons d’un switch (Cisco?) sur lequel nous pouvons brancher nos machines hôtes en Ethernet en ajoutant une connexion <strong>par pont</strong> sur nos routeurs.
+                        <p>Grace à la contribution de Mme Anaïs THILLAYE 🔥, nous disposons d’un switch sur lequel nous pouvons brancher nos machines hôtes en Ethernet en ajoutant une connexion <strong>par pont</strong> sur nos routeurs.
                         </p>
                         <p><img src="./dist/images/test-2021-12-07_13.32.40.gif" alt=""></p>
                         <p class="text-sm mb-0 text-center mr-2">Site web de Emrick</p>
                         <h2 id="connexion-des-réseaux-privés-à-internet-via-le-routeur">Connexion des réseaux privés à Internet via le routeur
                         </h2>
-                        <p>Pour l’instant, les machines clientes et serveurs sont connectées à Internet via une interface NAT dans le souci de pouvoir installer des paquets tels que apache2 ou curl.<br> Mais cette configuration n’offre presque aucun contrôle
-                            de l’entreprise sur le trafic des machines clientes (ils peuvent par exemple accéder à des sites potentiellement infectés).<br> Il faut donc faire en sorte que le trafic sortant du réseau privé soit obligé de transiter via
-                            le routeur.<br> Or, le routeur ne peut “<em>forward</em>” le trafic provenant du réseau privé sur Internet car les paquets provenant d’adresses privées doivent être rejetés par les routeurs n’ayant pas de connexion directe
+                        <p>Pour l’instant, les machines clientes et serveurs sont connectées à Internet via une interface NAT, dans le souci de pouvoir installer des paquets tels que apache2 ou curl.<br> Cependant cette configuration n’offre presque aucun
+                            contrôle de l’entreprise sur le trafic des machines clientes (ils peuvent par exemple accéder à des sites potentiellement infectés).<br> Il faut donc faire en sorte que le trafic sortant du réseau privé soit obligé de transiter
+                            via le routeur.<br> Or, le routeur ne peut “<em>forward</em>” le trafic provenant du réseau privé sur Internet car les paquets provenant d’adresses privées doivent être rejetés par les routeurs n’ayant pas de connexion directe
                             dans ce réseau. Les paquets seraient alors directement drop par le prochain routeur.<br> Afin de pouvoir faire en sorte que les clients puissent communiquer sur Internet via le routeur, il faut mettre en place du <strong>Source Nating</strong>                            (<em><strong>SNAT</strong></em>).</p>
                         <p>Pour ce faire, il faut d’abord indiquer au routeur qu’il peut remplacer les adresses IPs sources par la sienne.
                         </p>
                         <pre class=" language-bash"><code class="prism  language-bash"><span class="identifier-user">root@routeur:~$ :</span>	 iptables -t nat -A POSTROUTING -o enp0s10 -j MASQUERADE
                   
                   </code></pre>
-                        <p>Il faut ensuite ensuite indiquer au routeur quelles adresses IP il peut remplacer.</p>
+                        <p>Il faut ensuite indiquer au routeur quelles adresses IP il peut remplacer.</p>
                         <pre class=" language-bash"><code class="prism  language-bash"><span class="identifier-user">root@routeur:~$ :</span>	 iptables -t nat -A POSTROUTING -o enp0s10 -j SNAT --to 10.0.2.55
                   
                   </code></pre>
                         <p>Les machines clientes ont maintenant accès à Internet via le routeur.</p>
                         <h2 id="securite">Mise en place d'une politique de sécurité</h2>
-                        <p>Nous voulons définir une politique de sécurité pour notre réseau. Pour cela, nous allons suivre différentes étapes.</p>
+                        <p>Nous voulons définir une politique de sécurité pour notre réseau. Pour cela, nous allons suivre plusieurs étapes.</p>
                         <h3 id="forward">Forward</h3>
                         <p>Tout d’abord, on s’occupe du <em>forward</em>. On commence par refuser tous les paquets invalides :</p>
                         <p><code>iptables -A FORWARD -m state --state INVALID -j DROP -m comment --comment "All msg with invalid state are dropped"</code></p>
-                        <p>Ensuite, il faut accepter les transferts de connexions que nous faisons. Dans notre cas on veut juste autoriser la redirection du port 80 vers noter serveur web :</p>
+                        <p>Ensuite, il faut accepter les transferts de connexions. Dans notre cas on veut juste autoriser la redirection du port 80 vers notre serveur web :</p>
                         <p><code>iptables -A FORWARD -p tcp --dport 80 -d 10.0.2.16/24 -j ACCEPT -m comment --comment "Accept all connexion on my routeur through the port 80 : For accessing to the web server"</code></p>
-                        <p>On continue à accepter toutes les connexions entre les différentes machines de notre réseau. Cela aurait été différent si nous étions en entreprise. En effet, nous aurions limité cela pour mieux sécuriser le réseau. Voici les commandes
+                        <p>On continue à accepter toutes les connexions entre les différentes machines de notre réseau. Cela aurait été différent si nous étions en entreprise. En effet, nous aurions limité ceci pour mieux sécuriser le réseau. Voici les commandes
                             :
                         </p>
                         <pre><code>iptables -A FORWARD -i enp0s8 -o enp0s3 -j ACCEPT -m comment --comment "Accept Client network to access internet"
@@ -271,7 +235,7 @@ iptables -A INPUT -j LOG --log-prefix "INPUT DROP" -m comment --comment "Rajoute
                         <h2 id="dhcp">DHCP</h2>
                         <h3 id="configuration-du-serveur-dhcp">Configuration du serveur DHCP</h3>
                         <p>Afin d’éviter la configuration manuelle des machines clientes, il faut fournir un service DHCP (<em>Dynamic Host
-                          Configuration Protocol</em>).<br> L’outil choisi pour effectuer ceci est <strong>isc-dhcp-server</strong>, qui remplace dhcp3-server.</p>
+                          Configuration Protocol</em>).<br> L’outil choisi pour effectuer ceci est <strong>isc-dhcp-server</strong>, qui remplace dhcp3-server dans le set des outils réseaux classiques sous Linux.</p>
                         <p>Le serveur DNS choisi est le DNS de Cloudflare (1.1.1.1 / 1.0.0.1).</p>
                         <p>Il faut déclarer dans le fichier <strong>/etc/dhcp/dhcpd.conf</strong> la configuration suivante :</p>
                         <pre><code>option domain-name-servers 192.168.1.1 #Adresse du serveur DNS local sur le router, 1.0.0.1;
@@ -326,6 +290,8 @@ iptables -A INPUT -j LOG --log-prefix "INPUT DROP" -m comment --comment "Rajoute
                             <img src="./dist/images/parametrer-proxy-mozilla-firefox.jpg" alt="enter image description here">
                         </p>
                         <h3 id="proxy-transparent">Proxy transparent</h3>
+                        <p class="text-sm mb-0">En raison de contraintes horaires et techniques, cette partie n'a pas pu être réalisée dans son entièreté. Un exemple de configuration sera donc fourni.</p>
+                        <br/>
                         <p>Afin de faciliter l’accès à Internet des machines clientes, on peut indiquer au routeur qu’il doit rediriger tout le trafic http sur le proxy afin que le client n’ai pas à configurer son proxy.<br> Il s’agit d’une simple redirection
                             des ports 80 (HTTP) et 443 (HTTPS) :</p>
                         <pre class=" language-bash"><code class="prism  language-bash">
@@ -353,8 +319,8 @@ iptables -A INPUT -j LOG --log-prefix "INPUT DROP" -m comment --comment "Rajoute
                         <p>Ceci dans le but de ne pas essayer d'envoyer une requête HTTPS sur le port HTTP, ce qui mettrait en échec le proxy.</p>
                         <p>Désormais, les machines clientes n’ont plus à configurer leur navigateur pour utiliser le proxy.</p>
                         <h2 id="dns">DNS</h2>
-                        <p>L’outil choisi pour réaliser le serveur DNS est <strong>bind9</strong>.<br> Pour créer un nom de domaine, il faut créer un nouveau fichier db.nom_de_zone dans le répertoir <strong>/etc/bind/</strong> du serveur.<br> J’ai fait le
-                            choix de créer un nom de domaine correspondant à la DMZ, mydmz.lan.<br> Fichier de configuration <strong>db.mydmz.lan</strong>:</p>
+                        <p>L’outil choisi pour réaliser le serveur DNS est <strong>bind9</strong>.<br> Pour créer un nom de domaine, il faut créer un nouveau fichier db.nom_de_zone dans le répertoir <strong>/etc/bind/</strong> du serveur.<br> <br/>Exemple
+                            avec la zone mydmz.lan.<br> Fichier de configuration <strong>db.mydmz.lan</strong>:</p>
                         <pre><code>$TTL    604800
 @       IN      SOA     mydmz.lan. webmaster.mail.net. (
                               1         ; Serial
@@ -393,11 +359,55 @@ box     IN      AAAA		::
                                     file "/etc/bind/db.server112.com";
                                 }
                                 </code></pre>
+                        <br/><br/>
+                        <div>
+                            <p class="text-sm text-secondary">
+                                Nous tenons à remercier Anaïs Thillaye, Léo Bouteiller ainsi que Jonathan Bonnefoy pour leur aide et leur soutien.
+                            </p>
+                        </div>
                     </div>
+
                 </div>
     </div>
     </section>
 
+    <section class="features section">
+        <div class="container">
+            <div class="features-inner section-inner has-bottom-divider">
+                <div class="features-wrap">
+                    <div class="feature text-center is-revealing">
+                        <div class="feature-inner">
+                            <div class="feature-icon">
+                                <img src="dist/images/feature-icon-01.svg" alt="Feature 01">
+                            </div>
+                            <h4 class="feature-title mt-24">You're reading this</h4>
+                            <p class="text-sm mb-0">And now, this</p>
+                        </div>
+                    </div>
+                    <div class="feature text-center is-revealing">
+                        <div class="feature-inner">
+                            <div class="feature-icon">
+                                <img src="dist/images/Loth_Livre_III.svg" width="120" height="200" alt="Feature 02">
+                            </div>
+                            <h4 class="feature-title mt-24">"Tempora mori, tempora mundis recorda."" </h4>
+                            <p class="text-sm mb-0">"Voilà. Eh bien ça, par exemple, ça veut absolument rien dire, mais l’effet reste le même, et pourtant j’ai jamais foutu les pieds dans une salle de classe attention !"</p>
+                            <q>Le roi Loth</q>
+                        </div>
+                    </div>
+                    <div class="feature text-center is-revealing">
+                        <div class="feature-inner">
+                            <div class="feature-icon">
+                                <img width="120" height="100" src="dist/images/sillius_flag_of_britain.svg" alt="Feature 02">
+                            </div>
+                            <h4 class="feature-title mt-24">Et voici venir le temps des poings levés !</h4>
+                            <q>Gilles Servat</q>
+                            <p class="text-sm mb-0"> "Air de Bignou"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="pricing section">
         <div class="container-sm">
             <div class="pricing-inner section-inner">
@@ -441,9 +451,12 @@ box     IN      AAAA		::
     <section class="cta section">
         <div class="container">
             <div class="cta-inner section-inner">
-                <h3 class="section-title mt-0">Still not convinced</h3>
+                <h3 class="section-title mt-0">Still not convinced ?</h3>
+                <div>
+                    <img src="https://m.media-amazon.com/images/I/41u3nDmbK8L._AC_.jpg" width="120" height="200" alt="Feature 02">
+                </div>
                 <div class="cta-cta">
-                    <a class="button button-primary button-wide-mobile" href="">Get in touch</a>
+                    <a class="button button-primary button-wide-mobile" href="">YESS</a>
                 </div>
             </div>
         </div>
